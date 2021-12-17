@@ -6,20 +6,22 @@ import {
 
 } from '../fetch-utils.js';
 
+import { renderPoll } from '../render-utils.js';
+
 // check if authorized
 checkAuth();
 
-const currentPollEl = document.getElementById('current-poll-container');
-const pastPollsContainer = document.getElementById('past-polls-container');
-const questionEl = document.getElementById('question');
-const optionATitlel = document.getElementById('option-a');
-const optionBTitleEl = document.getElementById('option-b');
+const currentPollEl = document.querySelector('.current-poll-container');
+const pastPollsContainer = document.querySelector('.past-polls');
+const questionEl = document.getElementById('poll-question');
+const optionATitlel = document.getElementById('option-a-title');
+const optionBTitleEl = document.getElementById('option-b-title');
 const optionAVotesEl = document.getElementById('option-a-votes');
 const optionBVotesEl = document.getElementById('option-b-votes');
 const optionAButtonEl = document.getElementById('vote-a');
 const optionBButtonEl = document.getElementById('vote-b');
 const closePollButton = document.getElementById('close-poll-button');
-const pollFormEl = document.getElementById('poll-form');
+const pollFormEl = document.querySelector('#poll-form');
 const logoutButtonEl = document.getElementById('logout');
 
 let question = '';
@@ -37,8 +39,8 @@ pollFormEl.addEventListener('submit', (e) => {
     question = data.get('question');
     optionA = data.get('option-a');
     optionB = data.get('option-b');
-    votesA = data.get('vote-a');
-    votesB = data.get('vote-b');
+    // votesA = data.get('vote-a');
+    //votesB = data.get('vote-b');
 
     questionEl.textContent = question;
     optionATitlel.textContent = optionA;
@@ -74,7 +76,7 @@ closePollButton.addEventListener('click', async() => {
     };
     await createPoll(poll);
 
-    displayAllpolls();
+    displayAllPolls();
 
     optionA = '';
     optionB = '';
@@ -90,17 +92,19 @@ function displayCurrentPoll() {
     questionEl.textContent = 'question';
     optionATitlel.textContent = 'optionA';
     optionBTitleEl.textContent = 'optionB';
+    optionAVotesEl.textContent = 'votesA';
+    optionBVotesEl.textContent = 'votesB';
 
-    const newPoll = {
-        question,
-        optionA,
-        optionB,
-        votesA,
-        votesB,
-    };
+//     const newPoll = {
+//         question,
+//         optionA,
+//         optionB,
+//         votesA,
+//         votesB,
+//     };
 
-    const pollEl = renderPoll(newPoll);
-    currentPollEl.append(pollEl);
+//     const pollEl = renderPoll(newPoll);
+//     currentPollEl.append(pollEl);
 
 }
 
@@ -113,5 +117,3 @@ async function displayAllPolls() {
         pastPollsContainer.append(pollEl);
     }
 }
-
-displayCurrentPoll();
