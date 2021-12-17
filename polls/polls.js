@@ -11,7 +11,7 @@ import { renderPoll } from '../render-utils.js';
 // check if authorized
 checkAuth();
 
-const currentPollEl = document.querySelector('.current-poll-container');
+//const currentPollEl = document.querySelector('.current-poll-container');
 const pastPollsContainer = document.querySelector('.past-polls');
 const questionEl = document.getElementById('poll-question');
 const optionATitlel = document.getElementById('option-a-title');
@@ -68,13 +68,8 @@ logoutButtonEl.addEventListener('click', () => {
 });
 
 closePollButton.addEventListener('click', async() => {
-    const poll = {
-        optionA,
-        optionB,
-        votesA,
-        votesB,
-    };
-    await createPoll(poll);
+
+    await createPoll(question, optionA, optionB, votesA, votesB);
 
     displayAllPolls();
 
@@ -88,12 +83,12 @@ closePollButton.addEventListener('click', async() => {
 });
 
 function displayCurrentPoll() {
-    currentPollEl.textContent = '';
-    questionEl.textContent = 'question';
-    optionATitlel.textContent = 'optionA';
-    optionBTitleEl.textContent = 'optionB';
-    optionAVotesEl.textContent = 'votesA';
-    optionBVotesEl.textContent = 'votesB';
+    // currentPollEl.textContent = '';
+    questionEl.textContent = question;
+    optionATitlel.textContent = optionA;
+    optionBTitleEl.textContent = optionB;
+    optionAVotesEl.textContent = votesA;
+    optionBVotesEl.textContent = votesB;
 
 //     const newPoll = {
 //         question,
@@ -111,7 +106,7 @@ function displayCurrentPoll() {
 async function displayAllPolls() {
     const polls = await getPolls();
     pastPollsContainer.textContent = '';
-
+    console.log(polls);
     for (let poll of polls) {
         const pollEl = renderPoll(poll);
         pastPollsContainer.append(pollEl);

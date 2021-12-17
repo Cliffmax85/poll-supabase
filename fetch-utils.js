@@ -6,17 +6,19 @@ const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export async function createPoll(question, option1, option2, votes1, votes2) {
     const response = await client
+
         .from('polls')
         .insert([
             {
-                question,
-                option1: option1,
-                option2: option2,
-                votes1: votes1,
-                votes2: votes2,
+                user_id: client.auth.user().id,
+                question: question,
+                optionA: option1,
+                optionB: option2,
+                scoreA: votes1,
+                scoreB: votes2,
             },
         ]);
-
+        console.log(response.data);
     return response.data;
 }
 
