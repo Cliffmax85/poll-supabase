@@ -112,3 +112,4 @@ async function displayAllPolls() {
         pastPollsContainer.append(pollEl);
     }
 }
+displayAllPolls();
